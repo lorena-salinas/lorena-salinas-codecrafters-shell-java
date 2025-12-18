@@ -44,7 +44,7 @@ public class Main {
                 else {
                     System.out.println("cd: " + split[1] + " : No such file or directory");
                 }
-
+                continue;
             }
             if (command.equals("type")){
                 String command_or_file_name = split[1].trim();
