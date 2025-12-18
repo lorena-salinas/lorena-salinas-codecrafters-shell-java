@@ -1,5 +1,6 @@
 
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import java.io.*;
@@ -27,6 +28,23 @@ public class Main {
             if (command.equals("pwd")){
                 System.out.println(Paths.get("").toAbsolutePath().toString());
                 continue;
+            }
+            if (command.equals("cd")){
+                String newPath; // stores the directory user wants to change to
+                // User typed only cd with no path set directory to user's HOME directory
+                if (split.length < 2) {
+                    newPath = System.getenv("HOME");
+                    System.setProperty("user.dir", newPath);
+                }
+                // Otherwise, validate that a path was provided, that the path exists, and that it is a directory and not a file
+                else if (split.length == 2 && Files.exists(Paths.get(split[1])) && Files.isDirectory(Paths.get(split[1]))) {
+                    newPath = Paths.get(split[1]).toAbsolutePath().toString(); // converts the given path into an absolute path
+                    System.setProperty("user.dir", newPath); //change the shell's current directory to the new one
+                }
+                else {
+                    System.out.println("cd: " + split[1] + " : No such file or directory");
+                }
+
             }
             if (command.equals("type")){
                 String command_or_file_name = split[1].trim();
