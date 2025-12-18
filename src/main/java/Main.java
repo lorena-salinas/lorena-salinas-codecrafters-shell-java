@@ -1,5 +1,6 @@
 
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.io.*;
 
@@ -23,11 +24,15 @@ public class Main {
                 System.out.println(message);
                 continue;
             }
+            if (command.equals("pwd")){
+                System.out.println(Paths.get("").toAbsolutePath().toString());
+                continue;
+            }
             if (command.equals("type")){
-                String command_or_file_name = split[1];
+                String command_or_file_name = split[1].trim();
 
                 // Check for shell builtins
-                if (command_or_file_name.equals("exit") || command_or_file_name.equals("echo") || command_or_file_name.equals("type")) {
+                if (command_or_file_name.equals("exit") || command_or_file_name.equals("echo") || command_or_file_name.equals("type") || command_or_file_name.equals("pwd")) {
                     System.out.println(command_or_file_name + " is a shell builtin");
                 }
                 else {
